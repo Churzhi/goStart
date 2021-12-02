@@ -29,7 +29,6 @@ func main() {
 
 		fmt.Print("性别（男/女）：")
 		fmt.Scanln(&sex)
-		var bmi = weight / (tall * tall)
 
 		if sex == "男" {
 			sexWeight = 1
@@ -37,6 +36,7 @@ func main() {
 			sexWeight = 0
 		}
 		fmt.Println(name, weight, tall, age, sex)
+		var bmi = weight / (tall * tall)
 		var fatRate = (1.2*bmi + 0.23*float64(age) - 5.4 - 10.8*float64(sexWeight)) / 100
 		fmt.Printf("体脂率是：%f", fatRate)
 
