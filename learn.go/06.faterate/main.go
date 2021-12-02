@@ -27,8 +27,17 @@ func main() {
 		fmt.Print("年龄：")
 		fmt.Scanln(&age)
 
-		fmt.Print("性别（男/女）：")
+		fmt.Print("性别(男/女)：")
 		fmt.Scanln(&sex)
+		for {
+			if sex != "男" && sex != "女" {
+				fmt.Println("输入错误，请重新输入！")
+				fmt.Println("性别(男/女)：")
+				fmt.Scanln(&sex)
+			} else {
+				break
+			}
+		}
 
 		if sex == "男" {
 			sexWeight = 1
@@ -62,8 +71,10 @@ func main() {
 			} else {
 				fmt.Println("未成年")
 			}
-		} else {
+		} else if sex == "女" {
 			// todo 编写女性的体脂率与体脂状态表
+
+		} else {
 
 		}
 
