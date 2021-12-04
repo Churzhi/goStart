@@ -50,32 +50,89 @@ func main() {
 		fmt.Printf("体脂率是：%f", fatRate)
 
 		if sex == "男" {
-			// todo 编写男性的体脂率与体脂状态表
+			// 判断男性BMI
 			if age >= 18 && age <= 39 {
-				if fatRate < 0.1 {
+				if fatRate <= 0.1 {
 					fmt.Println("目前是：偏瘦")
 				} else if fatRate > 0.1 && fatRate <= 0.16 {
 					fmt.Println("目前是：标准")
 				} else if fatRate > 0.16 && fatRate <= 0.21 {
 					fmt.Println("目前是：偏重")
-				} else if fatRate >= 0.21 && fatRate <= 0.26 {
+				} else if fatRate > 0.21 && fatRate <= 0.26 {
 					fmt.Println("目前是：肥胖，少吃点")
 				} else {
-					fmt.Println("目前是：非常肥胖，健身游泳跑步，即刻开始")
+					fmt.Println("目前是：非常肥胖!")
 				}
-
 			} else if age >= 40 && age <= 59 {
-				//todo
+				if fatRate <= 0.11 {
+					fmt.Println("目前是：偏瘦")
+				} else if fatRate > 0.11 && fatRate <= 0.17 {
+					fmt.Println("目前是：标准")
+				} else if fatRate > 0.17 && fatRate <= 0.22 {
+					fmt.Println("目前是：偏重")
+				} else if fatRate > 0.22 && fatRate <= 0.27 {
+					fmt.Println("目前是：肥胖，少吃点")
+				} else {
+					fmt.Println("目前是：非常肥胖!")
+				}
 			} else if age >= 60 {
-				//todo
+				if fatRate <= 0.13 {
+					fmt.Println("目前是：偏瘦")
+				} else if fatRate > 0.13 && fatRate <= 0.19 {
+					fmt.Println("目前是：标准")
+				} else if fatRate > 0.19 && fatRate <= 0.24 {
+					fmt.Println("目前是：偏重")
+				} else if fatRate > 0.24 && fatRate <= 0.29 {
+					fmt.Println("目前是：肥胖，少吃点")
+				} else {
+					fmt.Println("目前是：非常肥胖!")
+				}
 			} else {
 				fmt.Println("未成年")
 			}
 		} else if sex == "女" {
-			// todo 编写女性的体脂率与体脂状态表
-
-		} else {
-
+			// 判断女性BMI
+			if age >= 18 && age <= 39 {
+				if fatRate <= 0.2 {
+					fmt.Println("目前是：偏瘦")
+				} else if fatRate > 0.20 && fatRate <= 0.27 {
+					fmt.Println("目前是：标准")
+				} else if fatRate > 0.27 && fatRate <= 0.34 {
+					fmt.Println("目前是：偏重")
+				} else if fatRate > 0.34 && fatRate <= 0.39 {
+					fmt.Println("目前是：肥胖，少吃点")
+				} else {
+					fmt.Println("目前是：非常肥胖!")
+				}
+			} else if age >= 40 && age <= 59 {
+				//todo
+				if fatRate <= 0.21 {
+					fmt.Println("目前是：偏瘦")
+				} else if fatRate > 0.21 && fatRate <= 0.28 {
+					fmt.Println("目前是：标准")
+				} else if fatRate > 0.28 && fatRate <= 0.35 {
+					fmt.Println("目前是：偏重")
+				} else if fatRate > 0.35 && fatRate <= 0.40 {
+					fmt.Println("目前是：肥胖，少吃点")
+				} else {
+					fmt.Println("目前是：非常肥胖!")
+				}
+			} else if age >= 60 {
+				//todo
+				if fatRate <= 0.22 {
+					fmt.Println("目前是：偏瘦")
+				} else if fatRate > 0.22 && fatRate <= 0.29 {
+					fmt.Println("目前是：标准")
+				} else if fatRate > 0.29 && fatRate <= 0.36 {
+					fmt.Println("目前是：偏重")
+				} else if fatRate > 0.36 && fatRate <= 0.41 {
+					fmt.Println("目前是：肥胖，少吃点")
+				} else {
+					fmt.Println("目前是：非常肥胖!")
+				}
+			} else {
+				fmt.Println("未成年")
+			}
 		}
 
 		var whetherContinue string
