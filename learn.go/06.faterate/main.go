@@ -16,11 +16,10 @@ func main() {
 		}
 
 		var person Person
-		const numbers = 3
-		users := [numbers]Person{person}
+		users := [3]Person{person}
 
 		fmt.Print("请输入一组用户数据（3个用户一组）：\n")
-		for i := 0; i < numbers; i++ {
+		for i := 0; i < 3; i++ {
 			// 用户输入
 			fmt.Printf("请输入第%d个用户数据\n", i+1)
 			fmt.Print("姓名：")
