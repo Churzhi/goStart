@@ -17,7 +17,7 @@ func main() {
 
 		var person Person
 		users := [3]Person{person}
-
+		var avgBMI float64
 		fmt.Print("请输入一组用户数据（3个用户一组）：\n")
 		for i := 0; i < 3; i++ {
 			// 用户输入
@@ -141,10 +141,12 @@ func main() {
 					BMIData = "未成年"
 				}
 			}
-			fmt.Printf("第%d位用户 %s 的体脂率是：%f，%s\n", i+1, personVal.name, fatRate, BMIData)
+			avgBMI += fatRate
+			fmt.Printf("第%d位用户 %s 的体脂率是：%f，建议：%s\n", i+1, personVal.name, fatRate, BMIData)
 
 		}
-
+		var userNumbers = len(users)
+		fmt.Println(userNumbers, "位用户的平均体脂率为：", avgBMI)
 		var whetherContinue string
 		fmt.Print("是否录入下一组数据n(y/n):")
 		fmt.Scanln(&whetherContinue)
