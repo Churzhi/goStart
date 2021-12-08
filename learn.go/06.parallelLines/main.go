@@ -4,6 +4,13 @@ import (
 	"fmt"
 )
 
+/*
+判断两条线是否平行
+提示：
+两点决定一条直线
+两条线是否平行取决于两条线的斜率是否一样
+*/
+
 func main() {
 
 	type Coordinate struct {
