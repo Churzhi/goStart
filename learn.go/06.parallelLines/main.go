@@ -13,7 +13,7 @@ import (
 
 func main() {
 
-	type Coordinate struct {
+	type Line struct {
 		x1        float64
 		y1        float64
 		x2        float64
@@ -22,24 +22,24 @@ func main() {
 		intercept float64
 	}
 
-	var coordinate Coordinate
-	lineCoordinates := [2]Coordinate{coordinate}
+	var line Line
+	lines := [2]Line{line}
 
 	for i := 0; i < 2; i++ {
 		fmt.Println("请输入直线", i+1, "的两个（X，Y）坐标：")
-		coordinate.x1, coordinate.y1, coordinate.x2, coordinate.y2 = getLineCoordinate()
-		coordinate.gradient, coordinate.intercept = calcGradientAndIntercept(coordinate.x1, coordinate.y1, coordinate.x2, coordinate.y2)
-		lineCoordinates[i] = coordinate
+		line.x1, line.y1, line.x2, line.y2 = getLineCoordinate()
+		line.gradient, line.intercept = calcGradientAndIntercept(line.x1, line.y1, line.x2, line.y2)
+		lines[i] = line
 	}
-	//fmt.Println("coordinate:", lineCoordinates)
+	//fmt.Println("line:", lineCoordinates)
 
-	for i := 0; i < len(lineCoordinates); i++ {
-		for j := i + 1; j < len(lineCoordinates); j++ {
-			if lineCoordinates[i].gradient == lineCoordinates[j].gradient && lineCoordinates[i].intercept != lineCoordinates[j].intercept {
+	for i := 0; i < len(lines); i++ {
+		for j := i + 1; j < len(lines); j++ {
+			if lines[i].gradient == lines[j].gradient && lines[i].intercept != lines[j].intercept {
 				fmt.Println("直线", i+1, "和直线", i+2, "平行")
-			} else if lineCoordinates[i].gradient == lineCoordinates[j].gradient && lineCoordinates[i].intercept == lineCoordinates[j].intercept {
+			} else if lines[i].gradient == lines[j].gradient && lines[i].intercept == lines[j].intercept {
 				fmt.Println("直线", i+1, "和直线", i+2, "重合")
-			} else if lineCoordinates[i].gradient*lineCoordinates[j].gradient == -1 {
+			} else if lines[i].gradient*lines[j].gradient == -1 {
 				fmt.Println("直线", i+1, "和直线", i+2, "垂直")
 			} else {
 				fmt.Println("直线", i+1, "和直线", i+2, "不平行")
