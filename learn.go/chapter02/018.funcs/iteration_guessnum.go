@@ -1,0 +1,24 @@
+package main
+
+import "fmt"
+
+func guess(left, right uint) {
+	guessed := (left + right) / 2
+	var getFromInput string
+	fmt.Println("我猜是：", guessed)
+	fmt.Println("如果高了，输入1，如果低了，输入0；对了，输入9: ")
+
+	fmt.Scanln(&getFromInput)
+
+	switch getFromInput {
+	case "1":
+		if left == right {
+			fmt.Println("你是不是改注意了？")
+		}
+		guess(left, guessed+1)
+	case "0":
+		guess(guessed+1, right)
+	case "9":
+		fmt.Println("你心里想得数字是：", guessed)
+	}
+}

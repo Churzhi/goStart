@@ -74,8 +74,7 @@ func getHealthinessSuggestions(users [3]Person, totalBMI float64, avgBMI float64
 	fmt.Println(userNumbers, "位用户的平均体脂率为：", avgBMI)
 }
 
-func getHealthinessSuggestionsForFemale(personVal Person) string {
-	var BMIData string
+func getHealthinessSuggestionsForFemale(personVal Person) (BMIData string) {
 	if personVal.age >= 18 && personVal.age <= 39 {
 		if personVal.fatRate <= 0.2 {
 			BMIData = "目前是：偏瘦"
@@ -118,8 +117,7 @@ func getHealthinessSuggestionsForFemale(personVal Person) string {
 	return BMIData
 }
 
-func getHealthinessSuggestionsForMale(personVal Person) string {
-	var BMIData string
+func getHealthinessSuggestionsForMale(personVal Person) (BMIData string) {
 	if personVal.age >= 18 && personVal.age <= 39 {
 		if personVal.fatRate <= 0.1 {
 			BMIData = "目前是：偏瘦"
@@ -197,9 +195,9 @@ func getInfoFromInput() (name string, weight float64, tall float64, age int, sex
 	return name, weight, tall, age, sexWeight, sex
 }
 
-func calcFatRate(tall float64, weight float64, age int, sexWeight int) float64 {
+func calcFatRate(tall float64, weight float64, age int, sexWeight int) (fatRate float64) {
 	bmi := weight / ((tall * tall) / 10000)
-	fatRate := (1.2*bmi + 0.23*float64(age) - 5.4 - 10.8*float64(sexWeight)) / 100
+	fatRate = (1.2*bmi + 0.23*float64(age) - 5.4 - 10.8*float64(sexWeight)) / 100
 	return fatRate
 }
 func whetherContine() bool {
