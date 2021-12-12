@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"reflect"
 	"time"
 )
 
@@ -27,5 +28,8 @@ func main() {
 	arr3 := make([]string, 3, 4)
 	//复制切片
 	copy(arr3, arr2)
+	i := 3333
+	j := &i
+	fmt.Println(reflect.TypeOf(j))
 
 }
