@@ -26,10 +26,7 @@ func coverPanic() { // 未能抓住 panic
 }
 func coverPanicUpgraded() { // 能抓住 panic
 
-	//todo 确认代码
-	func() {
-		if r := recover(); r != nil {
-			fmt.Println("系统出严重故障：", r)
-		}
-	}()
+	if r := recover(); r != nil {
+		fmt.Println("系统出严重故障：", r)
+	}
 }

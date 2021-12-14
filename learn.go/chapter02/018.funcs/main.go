@@ -8,6 +8,9 @@ func main() {
 	//openFile()
 	closureMain()
 	fmt.Println(calcSum(12, 3, 5, 6, 3, 3))
+	fmt.Println(calcSum(12, 3, 5, 6, 3, 3))
+	fmt.Println(calcSum(12, 3, 5, 6, 3, 3))
+
 	showUsedTimes()
 	//guess(0, 100)
 
