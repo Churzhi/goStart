@@ -17,13 +17,12 @@ import (
 
 // Person 定义用户结构体
 type Person struct {
-	name      string
-	weight    float64
-	tall      float64
-	age       int
-	sexWeight int
-	sex       string
-	fatRate   float64
+	name    string
+	weight  float64
+	tall    float64
+	age     int
+	sex     string
+	fatRate float64
 }
 
 func main() {
@@ -45,9 +44,8 @@ func mainFatRateBody() {
 	for i := 0; i < 3; i++ {
 		// 用户输入
 		fmt.Printf("请输入第%d个用户数据\n", i+1)
-		person.name, person.weight, person.tall, person.age, person.sexWeight, person.sex = getInfoFromInput()
-		person.fatRate = calc.CalcBMI()
-		person.fatRate = calcFatRate(person.tall, person.weight, person.age, person.sexWeight)
+		person.name, person.weight, person.tall, person.age, person.sex = getInfoFromInput()
+		person.fatRate = calcFatRate(person.tall, person.weight, person.age, person.sex)
 		users[i] = person
 	}
 	getHealthinessSuggestions(users, totalBMI, avgBMI)
@@ -160,7 +158,7 @@ func getHealthinessSuggestionsForMale(personVal Person) (BMIData string) {
 	}
 	return BMIData
 }
-func getInfoFromInput() (name string, weight float64, tall float64, age int, sexWeight int, sex string) {
+func getInfoFromInput() (name string, weight float64, tall float64, age int, sex string) {
 	// 用户输入
 	fmt.Print("姓名：")
 	fmt.Scanln(&name)
@@ -187,18 +185,12 @@ func getInfoFromInput() (name string, weight float64, tall float64, age int, sex
 		}
 	}
 
-	if sex == "男" {
-		sexWeight = 1
-	} else {
-		sexWeight = 0
-	}
-
-	return name, weight, tall, age, sexWeight, sex
+	return name, weight, tall, age, sex
 }
 
-func calcFatRate(tall float64, weight float64, age int, sexWeight int) (fatRate float64) {
-	bmi := weight / ((tall * tall) / 10000)
-	fatRate = (1.2*bmi + 0.23*float64(age) - 5.4 - 10.8*float64(sexWeight)) / 100
+func calcFatRate(tall float64, weight float64, age int, sex string) (fatRate float64) {
+	bmi := calc.CalcBMI(tall, weight)
+	fatRate = calc.CalcFatRate(bmi, age, sex)
 	return fatRate
 }
 func whetherContine() bool {
