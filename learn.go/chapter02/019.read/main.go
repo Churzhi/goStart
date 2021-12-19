@@ -2,8 +2,12 @@ package main
 
 import (
 	"fmt"
+	"github.com/Churzhi/learn.go.tools/calc"
 	"github.com/spf13/cobra"
-	"learn.go.tools/calc"
+	//"learn.go/chapter02/015.faterate.refactor/calc"
+
+	//"learn.go.tools/calc" //本地 module
+	_ "github.com/Churzhi/learn.go.tools/calc"
 )
 
 func main() {
