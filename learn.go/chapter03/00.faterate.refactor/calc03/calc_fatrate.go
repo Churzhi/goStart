@@ -1,5 +1,5 @@
 // Package calc03 使用包时候的名字 可以与文件夹名字不一致
-package calc00
+package calc03
 
 func CalcFatRate(bmi float64, age int, sex string) (fatRate float64) {
 

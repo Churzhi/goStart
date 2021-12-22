@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"learn.go/chapter02/015.faterate.refactor/calc"
+	calc00 "learn.go/chapter02/015.faterate.refactor/calc"
 )
 
 /*
@@ -40,12 +40,21 @@ func mainFatRateBody() {
 	users := [3]Person{person}
 	var avgBMI float64
 	var totalBMI float64
+
 	fmt.Print("请输入一组用户数据（3个用户一组）：\n")
 	for i := 0; i < 3; i++ {
 		// 用户输入
 		fmt.Printf("请输入第%d个用户数据\n", i+1)
 		person.name, person.weight, person.tall, person.age, person.sex = getInfoFromInput()
-		person.fatRate = calcFatRate(person.tall, person.weight, person.age, person.sex)
+
+		var err error
+		person.fatRate, err = calcFatRate(person.tall, person.weight, person.age, person.sex)
+		if err != nil {
+			fmt.Println("warning: 计算 体脂率 出错，不能再继续！", err)
+		}
+		if person.fatRate <= 0 {
+			panic("fat rate is not allowed to be negative")
+		}
 		users[i] = person
 	}
 	getHealthinessSuggestions(users, totalBMI, avgBMI)
@@ -188,10 +197,13 @@ func getInfoFromInput() (name string, weight float64, tall float64, age int, sex
 	return name, weight, tall, age, sex
 }
 
-func calcFatRate(tall float64, weight float64, age int, sex string) (fatRate float64) {
-	bmi := calc.CalcBMI(tall, weight)
-	fatRate = calc.CalcFatRate(bmi, age, sex)
-	return fatRate
+func calcFatRate(tall float64, weight float64, age int, sex string) (fatRate float64, err error) {
+	bmi, err := calc00.CalcBMI(tall, weight)
+	if err != nil {
+		return 0, err
+	}
+	fatRate = calc00.CalcFatRate(bmi, age, sex)
+	return
 }
 func whetherContine() bool {
 	var whetherContinue string

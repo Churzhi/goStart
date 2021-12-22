@@ -2,12 +2,11 @@ package main
 
 import (
 	"fmt"
-	"github.com/Churzhi/learn.go.tools/calc"
 	"github.com/spf13/cobra"
 	//"learn.go/chapter02/00.faterate.refactor/calc03"
 
 	//"learn.go.tools/calc03" //本地 module
-	_ "github.com/Churzhi/learn.go.tools/calc"
+	gobmi "github.com/Churzhi/learn.go.tools/calc"
 )
 
 func main() {
@@ -35,9 +34,9 @@ func main() {
 			fmt.Println("age:", age)
 			// 计算
 			// 使用 learn.go.tools
-			bmi := calc.CalcBMI(tall, weight)
+			bmi := gobmi.CalcBMI(tall, weight)
 
-			fatRate := calc.CalcFatRate(bmi, age, sex)
+			fatRate := gobmi.CalcFatRate(bmi, age, sex)
 
 			// 评估结果
 			fmt.Println("fatRate:", fatRate)
