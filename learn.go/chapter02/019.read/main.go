@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"github.com/Churzhi/learn.go.tools/calc"
 	"github.com/spf13/cobra"
-	//"learn.go/chapter02/00.faterate.refactor/calc03"
+	//"learn.go/chapter02/00.faterate.refactor/calc"
 
-	//"learn.go.tools/calc03" //本地 module
+	//"learn.go.tools/calc" //本地 module
 	_ "github.com/Churzhi/learn.go.tools/calc"
 )
 

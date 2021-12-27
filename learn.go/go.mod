@@ -4,13 +4,17 @@ go 1.17
 
 require (
 	github.com/Churzhi/learn.go.tools v0.0.0-20211219072447-fcc7b1f15165
+	github.com/armstrongli/go-bmi v0.0.1
 	github.com/spf13/cobra v1.3.0
 )
 
 // 使用相对文件夹的路径 .. 表示上一层文件夹
 //replace learn.go.tools => ../learn.go.tools
 
-replace github.com/Churzhi/learn.go.tools => github.com/Churzhi/learn.go.tools v0.0.2
+replace (
+	github.com/Churzhi/learn.go.tools => github.com/Churzhi/learn.go.tools v0.0.2
+	github.com/armstrongli/go-bmi => /staging/src/github.com/armstrongli/go-bmi
+)
 
 require (
 	github.com/inconshreveable/mousetrap v1.0.0 // indirect
