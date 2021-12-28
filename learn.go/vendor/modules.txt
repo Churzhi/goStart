@@ -1,0 +1,17 @@
+# github.com/Churzhi/learn.go.tools v0.0.0-20211219072447-fcc7b1f15165 => github.com/Churzhi/learn.go.tools v0.0.2
+## explicit; go 1.17
+github.com/Churzhi/learn.go.tools/calc
+# github.com/armstrongli/go-bmi v0.0.1 => /staging/src/github.com/armstrongli/go-bmi
+## explicit; go 1.17
+github.com/armstrongli/go-bmi
+# github.com/inconshreveable/mousetrap v1.0.0
+## explicit
+github.com/inconshreveable/mousetrap
+# github.com/spf13/cobra v1.3.0
+## explicit; go 1.15
+github.com/spf13/cobra
+# github.com/spf13/pflag v1.0.5
+## explicit; go 1.12
+github.com/spf13/pflag
+# github.com/Churzhi/learn.go.tools => github.com/Churzhi/learn.go.tools v0.0.2
+# github.com/armstrongli/go-bmi => /staging/src/github.com/armstrongli/go-bmi
