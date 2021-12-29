@@ -13,7 +13,7 @@ require (
 
 replace (
 	github.com/Churzhi/learn.go.tools => github.com/Churzhi/learn.go.tools v0.0.2
-	github.com/armstrongli/go-bmi => ./staging/src/github.com/armstrongli/go-bmi
+	//github.com/armstrongli/go-bmi => ./staging/src/github.com/armstrongli/go-bmi
 )
 
 require (
