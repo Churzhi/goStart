@@ -37,7 +37,7 @@ func main() {
 
 func mainFatRateBody() {
 	var person Person
-	users := [3]Person{person}
+	var users = [3]Person{person}
 	//var avgBMI float64
 	//var totalBMI float64
 
@@ -45,8 +45,8 @@ func mainFatRateBody() {
 	for i := 0; i < 3; i++ {
 		// 用户输入
 		fmt.Printf("请输入第%d个用户数据\n", i+1)
-		person.name, person.weight, person.tall, person.age, person.sex = getInfoFromInput()
-
+		person = getInfoFromInput()
+		fmt.Println(person)
 		var err error
 		person.fatRate, err = calcFatRate(person.tall, person.weight, person.age, person.sex)
 		if err != nil {
@@ -175,22 +175,20 @@ func getHealthinessSuggestionsForMale(personVal Person) (BMIData string) {
 	}
 	return BMIData
 }
-func getInfoFromInput() (name string, weight float64, tall float64, age int, sex string) {
+func getInfoFromInput() Person {
 	// 用户输入
+	var person Person
 	fmt.Print("姓名：")
-	fmt.Scanln(&name)
+	fmt.Scanln(&person.name)
 
 	fmt.Print("体重（kg）：")
-	fmt.Scanln(&weight)
-
-	fmt.Print("身高（cm）：")
-	fmt.Scanln(&tall)
-
+	fmt.Scanln(&person.weight)
+	fmt.Print("身高（m）：")
+	fmt.Scanln(&person.tall)
 	fmt.Print("年龄：")
-	fmt.Scanln(&age)
-
+	fmt.Scanln(&person.age)
 	fmt.Print("性别(男/女)：")
-	fmt.Scanln(&sex)
+	fmt.Scanln(&person.sex)
 	/*
 		for {
 			if sex != "男" && sex != "女" {
@@ -202,11 +200,12 @@ func getInfoFromInput() (name string, weight float64, tall float64, age int, sex
 			}
 		}
 	*/
-	return name, weight, tall, age, sex
+
+	return person
 }
 
 func calcFatRate(tall float64, weight float64, age int, sex string) (fatRate float64, err error) {
-	bmi, err := calc.CalcBMI(tall, weight)
+	bmi, err := calc.CalcBMI(weight, tall)
 	if err != nil {
 		return 0, err
 	}

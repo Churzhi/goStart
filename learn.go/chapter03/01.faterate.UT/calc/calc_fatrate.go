@@ -25,6 +25,8 @@ func CalcFatRate(bmi float64, age int, sex string) (fatRate float64, err error) 
 		sexWeight = 0
 	}
 	fatRate = (1.2*bmi + getAgeWeight(age)*float64(age) - 5.4 - 10.8*float64(sexWeight)) / 100
+	fmt.Println(bmi, age, sex)
+	fmt.Println(fatRate)
 	return
 }
 
