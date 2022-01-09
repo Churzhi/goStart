@@ -6,14 +6,22 @@ import (
 
 func main() {
 
-	person := getFakePersonInfo()
-	c := Calc{}
-	c.BMI(person)
-	c.FatRate(person)
-	fmt.Println(person)
-	sugg := fatRateSuggestion{}
-	suggestion := sugg.GetSuggestion(person)
-	fmt.Println(suggestion)
+	//person := getFakePersonInfo()
+	//c := Calc{}
+	//c.BMI(person)
+	//c.FatRate(person)
+	//fmt.Println(person)
+	//sugg := fatRateSuggestion{}
+	//suggestion := sugg.GetSuggestion(person)
+	//fmt.Println(suggestion)
+	frSvc := &fatRateService{s: GetFatRateSuggestion()}
+	//fakerPerson := getFakePersonInfo()
+	//fmt.Println(frSvc.GiveSuggestionToPerson(fakerPerson))
+
+	for {
+		p := getPersonInfoFromInput()
+		fmt.Println(frSvc.GiveSuggestionToPerson(p))
+	}
 }
 
 func getPersonInfoFromInput() *Person {
