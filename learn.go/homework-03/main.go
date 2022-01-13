@@ -9,7 +9,11 @@ import (
 )
 
 func main() {
+	ele := GetInputTargetFloor()
 
+	for _, item := range ele.targetFloors {
+		ele.Run(item)
+	}
 }
 
 func GetInputTargetFloor() *Elevator {

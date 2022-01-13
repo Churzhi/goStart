@@ -5,31 +5,37 @@ import (
 	"time"
 )
 
-type eleTask struct {
-	e *Elevator
+func ElevatorInit(maxFloor int, nowFloor int) *Elevator {
+	ele := new(Elevator)
+	ele.maxFloor = maxFloor
+	ele.nowFloor = nowFloor
+
+	return ele
 }
 
-func (eT eleTask) Run(ele Elevator) {
-	for _, item := range ele.targetFloors {
-
-		if ele.nowFloor < item {
-			eT.passingFloor(ele.nowFloor, item)
+func (e *Elevator) Run(target int) {
+	floor := e.nowFloor
+	fmt.Println("电梯当前处于：", floor, "楼,", "正在前往：", target, "楼")
+	if target >= 1 && target <= e.maxFloor {
+		if target == e.nowFloor {
+			fmt.Println("电梯已在你的目标楼层：", target, "楼")
+		} else if target > e.nowFloor {
+			for elestart := e.nowFloor; elestart < target; elestart++ {
+				time.Sleep(1 * time.Second)
+				e.nowFloor = elestart + 1
+			}
+		} else if target < e.nowFloor {
+			for elestart := e.nowFloor; elestart > target; elestart-- {
+				time.Sleep(1 * time.Second)
+				e.nowFloor = elestart - 1
+			}
 		}
-		if ele.nowFloor == item {
-			eT.reachTargetFloor(ele.nowFloor)
+		if e.nowFloor == target {
+			fmt.Println(target, "楼到了")
+			fmt.Println(e.OpenDoor())
+			fmt.Println(e.CloseDoor())
 		}
+	} else {
+		fmt.Println("你的目标楼层错误")
 	}
-
-}
-
-func (eT *eleTask) passingFloor(passing, target int) {
-	fmt.Println("当前楼层：", passing, "楼", "去往", target, "楼")
-	time.Sleep(1000)
-}
-
-func (eT *eleTask) reachTargetFloor(target int) {
-	fmt.Println("到达：", target, "楼")
-	eT.e.OpenDoor()
-	time.Sleep(1000)
-	eT.e.OpenDoor()
 }
