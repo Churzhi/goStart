@@ -14,9 +14,9 @@ func (e *Elevator) CloseDoor() string {
 	return "电梯关门"
 }
 
-func (e *Elevator) ElevatorStatusInfo() string {
-
-	//nowFloorInfo:= "电梯在："+e.nowFloor
-	//
-	return "nil"
-}
+//func (e *Elevator) ElevatorStatusInfo() string {
+//
+//	//nowFloorInfo:= "电梯在："+e.nowFloor
+//	//
+//	return "nil"
+//}
