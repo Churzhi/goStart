@@ -14,32 +14,28 @@ type Store struct {
 	cCond     *sync.Cond
 }
 
-type Producer struct {
-}
+type Producer struct{}
 
 func (Producer) Produce(s *Store) {
 	s.lock.Lock()
 	defer s.lock.Unlock()
 	if s.DataCount == s.Max {
-		fmt.Println("生产者看到库存满了，不生产")
+		fmt.Println("生产者在等仓库拉货")
 		s.pCond.Wait()
-		return
 	}
 	fmt.Println("开始生产+1")
 	s.DataCount++
 	s.cCond.Signal()
 }
 
-type Consumer struct {
-}
+type Consumer struct{}
 
 func (Consumer) Consume(s *Store) {
 	s.lock.Lock()
 	defer s.lock.Unlock()
 	if s.DataCount == 0 {
-		fmt.Println("消费者看到库存满了，不消费")
+		fmt.Println("消费者在等货")
 		s.cCond.Wait()
-		return
 	}
 	fmt.Println("消费者消费-1")
 	s.DataCount--
@@ -47,12 +43,9 @@ func (Consumer) Consume(s *Store) {
 }
 
 func main() {
-
 	s := &Store{
 		Max: 10,
 	}
-	// 初始化 cond
-	//cond := sync.NewCond(&sync.Mutex{})
 	s.pCond = sync.NewCond(&s.lock)
 	s.cCond = sync.NewCond(&s.lock)
 
@@ -60,7 +53,7 @@ func main() {
 	for i := 0; i < pCount; i++ {
 		go func() {
 			for {
-				time.Sleep(100 * time.Microsecond)
+				time.Sleep(100 * time.Millisecond)
 				Producer{}.Produce(s)
 			}
 		}()
@@ -68,7 +61,7 @@ func main() {
 	for i := 0; i < cCount; i++ {
 		go func() {
 			for {
-				time.Sleep(100 * time.Microsecond)
+				time.Sleep(100 * time.Millisecond)
 				Consumer{}.Consume(s)
 			}
 		}()
