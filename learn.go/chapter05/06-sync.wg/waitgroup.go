@@ -11,8 +11,10 @@ type Runner struct {
 	Name string
 }
 
-func (r Runner) Run(wg *sync.WaitGroup) {
+func (r Runner) Run(startPointWg, wg *sync.WaitGroup) {
 	defer wg.Done()
+	// 在 goroutine 中等待起跑信号
+	startPointWg.Wait()
 	start := time.Now()
 	fmt.Println(r.Name, "开始跑@", start)
 	// 设置一个随机数
@@ -29,17 +31,22 @@ func main() {
 	wg := sync.WaitGroup{}
 	wg.Add(runnerCount)
 
+	// 等待，所有人一起跑
+	startPointWg := sync.WaitGroup{}
+	startPointWg.Add(1)
+
 	for i := 0; i < runnerCount; i++ {
 		runners = append(runners, Runner{
 			Name: fmt.Sprintf("%d", i),
 		})
 	}
 	for _, runnerItem := range runners {
-		go runnerItem.Run(&wg)
+		go runnerItem.Run(&startPointWg, &wg)
 	}
 	fmt.Println("各就位")
 	time.Sleep(1 * time.Second)
 	fmt.Println("预备跑")
+	startPointWg.Done()
 
 	wg.Wait()
 	fmt.Println("赛跑结束")
