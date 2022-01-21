@@ -11,18 +11,22 @@ type Runner struct {
 	Name string
 }
 
-func (r Runner) Run(startPointWg, wg *sync.WaitGroup) {
-	fmt.Println(r.Name, "开始跑")
+func (r Runner) Run(wg *sync.WaitGroup) {
+	defer wg.Done()
+	start := time.Now()
+	fmt.Println(r.Name, "开始跑@", start)
+	// 设置一个随机数
 	rand.Seed(time.Now().UnixNano())
 	time.Sleep(time.Duration(rand.Uint64()%10) * time.Second)
-	fmt.Println(r.Name, "跑到终点")
+	finish := time.Now()
+	fmt.Println(r.Name, "跑到终点,用时：", finish.Sub(start))
 }
 
 func main() {
 	runnerCount := 10
 	runners := []Runner{}
-	wg := sync.WaitGroup{}
 
+	wg := sync.WaitGroup{}
 	wg.Add(runnerCount)
 
 	for i := 0; i < runnerCount; i++ {
@@ -31,11 +35,12 @@ func main() {
 		})
 	}
 	for _, runnerItem := range runners {
-		go runnerItem.Run(&&wg)
+		go runnerItem.Run(&wg)
 	}
 	fmt.Println("各就位")
-	time.Sleep(1*time.Second)
+	time.Sleep(1 * time.Second)
 	fmt.Println("预备跑")
 
-
+	wg.Wait()
+	fmt.Println("赛跑结束")
 }
