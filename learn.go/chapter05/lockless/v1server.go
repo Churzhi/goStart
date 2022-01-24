@@ -6,10 +6,6 @@ import (
 	"time"
 )
 
-type Config struct {
-	Content string
-}
-
 type WebServerV1 struct {
 	config     Config
 	configLock sync.RWMutex
