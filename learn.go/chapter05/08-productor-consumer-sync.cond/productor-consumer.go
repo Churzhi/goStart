@@ -23,7 +23,7 @@ func (Producer) Produce(s *Store) {
 	if s.DataCount == s.Max {
 		fmt.Println("生产者看到库存满了，不生产")
 		s.pCond.Wait()
-		return
+
 	}
 	fmt.Println("开始生产+1")
 	s.DataCount++
@@ -39,7 +39,7 @@ func (Consumer) Consume(s *Store) {
 	if s.DataCount == 0 {
 		fmt.Println("消费者看到库存满了，不消费")
 		s.cCond.Wait()
-		return
+
 	}
 	fmt.Println("消费者消费-1")
 	s.DataCount--
