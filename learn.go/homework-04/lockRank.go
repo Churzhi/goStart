@@ -16,10 +16,11 @@ type Person struct {
 }
 
 type FatRateRank struct {
+	lock  sync.Mutex
 	items []Person
 }
 
-// 注册数据
+// 注册/修改数据
 func (r *FatRateRank) inputRecord(name string, fatRate ...float64) {
 	minFatRate := math.MaxFloat64
 	for _, item := range fatRate {
@@ -31,11 +32,13 @@ func (r *FatRateRank) inputRecord(name string, fatRate ...float64) {
 	found := false
 	for i, item := range r.items {
 		if item.Name == name {
+			r.lock.Lock()
 			if item.FatRate >= minFatRate {
 				item.FatRate = minFatRate
 			}
 			r.items[i] = item
 			found = true
+			defer r.lock.Unlock()
 			break
 		}
 	}
@@ -76,42 +79,6 @@ func (r *FatRateRank) getRank(name string) (rank int, fatRate float64) {
 
 }
 
-func main() {
-	r := &FatRateRank{}
-	Register(1000, r)
-	rank, _ := r.getRank("Person:22")
-	fmt.Println(rank)
-
-	lock := sync.Mutex{}
-	concurrency := 1000
-	//wg := sync.WaitGroup{}
-	//wg.Add(concurrency)
-
-	rand.Seed(time.Now().UnixNano())
-	go func() {
-		for {
-			for _, item := range r.items {
-				if item.Name == "" {
-					break
-				}
-				if item.Name == "Person:"+strconv.Itoa(concurrency+1) {
-					//defer wg.Done()
-					lock.Lock()
-					defer lock.Unlock()
-					tmpFatRate := item.FatRate
-					item.FatRate = tmpFatRate + (rand.Float64() * 0.2) + 0.2
-					rank, _ = r.getRank(item.Name)
-					fmt.Println(item.Name, "排名：", rank)
-				}
-			}
-		}
-	}()
-
-	//wg.Wait()
-	time.Sleep(10 * time.Second)
-
-}
-
 func Register(Number int, r *FatRateRank) {
 	fmt.Println("开始注册")
 	rand.Seed(time.Now().UnixNano())
@@ -119,4 +86,32 @@ func Register(Number int, r *FatRateRank) {
 		r.inputRecord("Person:"+strconv.Itoa(i+1), (rand.Float64()*0.5)+0.05)
 	}
 	//fmt.Println(r)
+}
+
+func main() {
+	r := &FatRateRank{}
+	Register(1000, r)
+	//rank, _ := r.getRank("Person:22")
+	//fmt.Println(rank)
+
+	//lock := sync.Mutex{}
+	//wg := sync.WaitGroup{}
+	//wg.Add(5)
+	go func() {
+		for {
+			rand.Seed(time.Now().UnixNano())
+			for _, item := range r.items {
+				randomNum := (rand.Float64() * 0.02) + 0.02
+				r.inputRecord(item.Name, item.FatRate+randomNum)
+				rank, fatRate := r.getRank(item.Name)
+				fmt.Println(item.Name, "排名：", rank, "FatRate：", fatRate)
+			}
+			//defer wg.Done()
+
+		}
+	}()
+
+	//wg.Wait()
+	time.Sleep(10 * time.Second)
+
 }
