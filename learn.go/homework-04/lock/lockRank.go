@@ -32,13 +32,13 @@ func (r *FatRateRank) inputRecord(name string, fatRate ...float64) {
 	found := false
 	for i, item := range r.items {
 		if item.Name == name {
-			r.lock.Lock()
+			//r.lock.Lock()
 			if item.FatRate >= minFatRate {
 				item.FatRate = minFatRate
 			}
 			r.items[i] = item
 			found = true
-			defer r.lock.Unlock()
+			//defer r.lock.Unlock()
 			break
 		}
 	}
