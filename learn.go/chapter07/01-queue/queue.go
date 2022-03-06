@@ -1,17 +1,26 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"sync"
+)
 
 // Queue 队列：先进先出
 type Queue struct {
+	//线程安全的队列
+	sync.Mutex
 	data []interface{}
 }
 
 func (q *Queue) Push(data interface{}) {
+	q.Lock()
+	defer q.Unlock()
 	q.data = append(q.data, data)
 }
 
 func (q *Queue) Pop() (interface{}, bool) {
+	q.Lock()
+	defer q.Unlock()
 	if len(q.data) > 0 {
 		o := q.data[0]
 		q.data = q.data[1:]

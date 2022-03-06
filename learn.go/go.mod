@@ -5,7 +5,9 @@ go 1.17
 require (
 	github.com/Churzhi/learn.go.tools v0.0.0-20211219072447-fcc7b1f15165
 	github.com/armstrongli/go-bmi v0.0.1
+	github.com/go-sql-driver/mysql v1.6.0
 	github.com/spf13/cobra v1.3.0
+
 )
 
 // 使用相对文件夹的路径 .. 表示上一层文件夹
