@@ -1,8 +1,12 @@
 package main
 
 import (
+	"encoding/json"
+	"fmt"
 	gobmi "github.com/armstrongli/go-bmi"
+	"io/ioutil"
 	"log"
+	"os"
 )
 
 type Person struct {
@@ -56,13 +60,24 @@ func (p *Person) calcFatRate() {
 
 func main() {
 
-	var rank Rank = &FatRateRank{} // 实例化
-	//var clients []Client           // 实例化
-	person := getFakePersonInfo()
-	person.calcBmi()
-	person.calcFatRate()
+	//var rank Rank = &FatRateRank{} // 实例化
+	//var clients []Client           // 实例化s
+	input := &inputFromStd{}
+	personInformation := input.GetInput()
+	filePath := "C:\\Users\\Churzhi\\go\\src\\learn.go\\homework-05\\personInformation.json"
 
-	rank.UpdateFR(person.name, person.fatRate)
+	data, err := json.Marshal(personInformation)
+	if err != nil {
+		log.Fatal(err)
+	}
+	//fmt.Println("Marshal 的结果是(原生)：", data)
+	fmt.Println("Marshal 的结果是(string)：", string(data))
+
+	//保存注册信息到文件中
+	writeFile(filePath, data)
+	readFile(filePath)
+
+	//rank.UpdateFR(person.name, person.fatRate)
 
 	//for i := 0; i < len(clients); i++ {
 	//	go func(idx int) {
@@ -83,12 +98,27 @@ func main() {
 
 }
 
-func getFakePersonInfo() *Person {
-	return &Person{
-		name:   "zhou",
-		sex:    "男",
-		tall:   1.74,
-		weight: 66,
-		age:    24,
+func writeFile(filePath string, data []byte) {
+	file, err := os.Create(filePath)
+	if err != nil {
+		fmt.Println("无法打开文件", filePath, "错误信息是：", err)
+		os.Exit(1)
 	}
+	defer file.Close()
+
+	_, err = file.Write(data)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+}
+
+func readFile(filePath string) {
+	data, err := ioutil.ReadFile(filePath)
+	if err != nil {
+		fmt.Println("读取文件失败：", err)
+		return
+	}
+	fmt.Println("读取出来的内容是：", string(data))
+
 }
