@@ -42,7 +42,7 @@ func (r *FatRateRank) inputRecord(name string, fatRate ...float64) {
 	}
 }
 
-func (r *FatRateRank) GetRank(name string) (rank int, fatRate float64) {
+func (r *FatRateRank) getRank(name string) (rank int, fatRate float64) {
 	sort.Slice(r.items, func(i, j int) bool {
 		return r.items[i].FatRate < r.items[j].FatRate
 	})
@@ -65,41 +65,31 @@ func (r *FatRateRank) GetRank(name string) (rank int, fatRate float64) {
 		}
 	}
 
-	// for nameItem, frItem := range personFatRate {
-	// 	fatRate2PersonMap[frItem] = append(fatRate2PersonMap[frItem], nameItem)
-	// 	rankArr = append(rankArr, frItem)
-	// }
-	// sort.Float64s(rankArr)
-	// for i, frItem := range rankArr {
-	// 	_names := fatRate2PersonMap[frItem]
-	// 	for _, _name := range _names {
-	// 		if _name == name {
-	// 			rank = i + 1
-	// 			fatRate = frItem
-	// 			return
-	// 		}
-	// 	}
-	// }
 	return
 }
 
 func (r *FatRateRank) getRankBubbleSort(name string) (rank int, fatRate float64) {
 	fmt.Println(r.items)
 	r.bubbleSort()
-	frs := map[float64]struct{}{}
-	for _, item := range r.items {
-		frs[item.FatRate] = struct{}{}
-		if item.Name == name {
-			fatRate = item.FatRate
+
+	for i, frItem := range r.items {
+		if frItem.Name == name {
+			fatRate = frItem.FatRate
+			rank = i + 1
+			break
 		}
 	}
-	rankArr := make([]float64, 0, len(frs))
-	for k := range frs {
-		rankArr = append(rankArr, k)
-	}
-	sort.Float64s(rankArr)
-	for i, frItem := range rankArr {
-		if frItem == fatRate {
+
+	return
+}
+
+func (r *FatRateRank) getRankQuickSort(name string) (rank int, fatRate float64) {
+	fmt.Println(r.items)
+	quickSort(r.items, 0, len(r.items)-1)
+
+	for i, frItem := range r.items {
+		if frItem.Name == name {
+			fatRate = frItem.FatRate
 			rank = i + 1
 			break
 		}
@@ -118,6 +108,38 @@ func (r *FatRateRank) bubbleSort() {
 		}
 		fmt.Println("中间状态", r.items)
 	}
-	fmt.Println("最终状态", r.items)
 
+}
+func quickSort(arr []RankItem, start, end int) {
+
+	pivotIdx := (start + end) / 2
+	pivotV := (arr)[pivotIdx]
+	l, r := start, end
+	for l <= r {
+		for (arr)[l].FatRate < pivotV.FatRate {
+			l++
+		}
+		for (arr)[r].FatRate > pivotV.FatRate {
+			r--
+		}
+
+		if l >= r {
+			break
+		}
+
+		(arr)[l], (arr)[r] = (arr)[r], (arr)[l]
+		l++
+		r--
+	}
+	fmt.Println(arr)
+	if l == r {
+		l++
+		r--
+	}
+	if r > start {
+		quickSort(arr, start, r)
+	}
+	if l < end {
+		quickSort(arr, l, end)
+	}
 }

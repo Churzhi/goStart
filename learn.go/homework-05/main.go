@@ -24,7 +24,9 @@ func main() {
 			log.Fatal("保存失败", err)
 		}
 		rank.inputRecord(personInformation.Name, fatRate)
-		rankResult, _ := rank.getRankBubbleSort(personInformation.Name)
+		//rankResult, _ := rank.getRankBubbleSort(personInformation.Name) // 冒泡排序
+		rankResult, _ := rank.getRankQuickSort(personInformation.Name) // 快排
+
 		fmt.Println("排名结果：", rankResult)
 
 	}
